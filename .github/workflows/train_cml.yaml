@@ -2,7 +2,7 @@ name: model-training
 
 on:
   pull_request:
-    branches: main
+    branches: [ "main" ]  # Only run when pushing to the main branch of the repository
 
 permissions: write-all
 
