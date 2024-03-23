@@ -1,0 +1,46 @@
+schema: '2.0'
+stages:
+  preprocess:
+    cmd: python3 preprocess_dataset.py
+    deps:
+    - path: preprocess_dataset.py
+      hash: md5
+      md5: 86e49fc7f43f10f13b4ae5c0d3b7b163
+      size: 3501
+    - path: raw_dataset/weather.csv
+      hash: md5
+      md5: 8b80f6484630c3b5b0dacaabc37afaf0
+      size: 2726131
+    - path: utils_and_constants.py
+      hash: md5
+      md5: 95102726937e555ebc23e77874aabd1b
+      size: 2072
+    outs:
+    - path: processed_dataset/weather.csv
+      hash: md5
+      md5: 5a799ba072f8399633fbd5b922d7c499
+      size: 10526986
+  hp_tune:
+    cmd: python3 hp_tuning.py
+    deps:
+    - path: hp_config.json
+      hash: md5
+      md5: e681bab4209ff957f7d2ebec56690dab
+      size: 100
+    - path: hp_tuning.py
+      hash: md5
+      md5: f5fc3459a1a00e835c04461c9dee1f3d
+      size: 1268
+    - path: processed_dataset/weather.csv
+      hash: md5
+      md5: 5a799ba072f8399633fbd5b922d7c499
+      size: 10526986
+    - path: utils_and_constants.py
+      hash: md5
+      md5: 95102726937e555ebc23e77874aabd1b
+      size: 2072
+    outs:
+    - path: hp_tuning_results.md
+      hash: md5
+      md5: 526ea7e9ad8058de48717cd4023ec860
+      size: 1208
