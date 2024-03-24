@@ -2,7 +2,7 @@ name: dvc-pipeline
 
 on:
   pull_request:
-    branches: [ "main" ]
+    branches: main
 
 permissions: write-all
 
