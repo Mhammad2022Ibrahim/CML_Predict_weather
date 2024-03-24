@@ -5,16 +5,16 @@ stages:
     deps:
     - path: preprocess_dataset.py
       hash: md5
-      md5: 86e49fc7f43f10f13b4ae5c0d3b7b163
-      size: 3501
+      md5: 9607d6381254c32dedc74d39754072e6
+      size: 7174
     - path: raw_dataset/weather.csv
       hash: md5
       md5: 8b80f6484630c3b5b0dacaabc37afaf0
       size: 2726131
     - path: utils_and_constants.py
       hash: md5
-      md5: 95102726937e555ebc23e77874aabd1b
-      size: 2072
+      md5: ee626c187420ed0b95e1c195f46f050f
+      size: 3771
     outs:
     - path: processed_dataset/weather.csv
       hash: md5
@@ -29,18 +29,58 @@ stages:
       size: 100
     - path: hp_tuning.py
       hash: md5
-      md5: f5fc3459a1a00e835c04461c9dee1f3d
-      size: 1268
+      md5: f33285d20dcfd0c29461b8375fe1de65
+      size: 1384
     - path: processed_dataset/weather.csv
       hash: md5
       md5: 5a799ba072f8399633fbd5b922d7c499
       size: 10526986
     - path: utils_and_constants.py
       hash: md5
-      md5: 95102726937e555ebc23e77874aabd1b
-      size: 2072
+      md5: ee626c187420ed0b95e1c195f46f050f
+      size: 3771
     outs:
     - path: hp_tuning_results.md
       hash: md5
       md5: 526ea7e9ad8058de48717cd4023ec860
       size: 1208
+  train:
+    cmd: python3 train.py
+    deps:
+    - path: metrics_and_plots.py
+      hash: md5
+      md5: 45f76dc8b13b65c3b710867095f665e7
+      size: 1438
+    - path: model.py
+      hash: md5
+      md5: 07a7f7f8c93218931b3f86e94afeda9e
+      size: 2036
+    - path: processed_dataset/weather.csv
+      hash: md5
+      md5: 5a799ba072f8399633fbd5b922d7c499
+      size: 10526986
+    - path: rfc_best_params.json
+      hash: md5
+      md5: f02ec8024ed5955e100c8fefbcf7a41b
+      size: 58
+    - path: train.py
+      hash: md5
+      md5: c2128d0aa03b1a7c989af09bbb3b182c
+      size: 2203
+    - path: utils_and_constants.py
+      hash: md5
+      md5: ee626c187420ed0b95e1c195f46f050f
+      size: 3771
+    outs:
+    - path: metrics.json
+      hash: md5
+      md5: 4ea2f49411478deeb4c30942b9205751
+      size: 76
+    - path: predictions.csv
+      hash: md5
+      md5: 2cb0ecb2ac3d7a8f3c0adbd61575ee3e
+      size: 31278
+    - path: roc_curve.csv
+      hash: md5
+      md5: eeb108c65d0b17521a2be7bbca00da13
+      size: 224
