@@ -1,0 +1,82 @@
+# stages:
+#   preprocess:
+#     # Run the data preprocessing script
+#     cmd: python3 preprocess_dataset.py
+#     deps:
+#     - preprocess_dataset.py
+#     - raw_dataset/weather.csv
+#     - utils_and_constants.py
+#     outs:
+#     - processed_dataset/weather.csv
+#   train:
+#     # Run the model training script
+#     cmd: python3 train.py
+#     deps:
+#     - metrics_and_plots.py
+#     - model.py
+#     - processed_dataset/weather.csv
+#     - train.py
+#     - utils_and_constants.py
+#     outs:
+#     - metrics.json
+#     - confusion_matrix.png
+
+# stages:
+#   preprocess:
+#     # Run the data preprocessing script
+#     cmd: python3 preprocess_dataset.py
+#     deps:
+#     - preprocess_dataset.py
+#     - raw_dataset/weather.csv
+#     - utils_and_constants.py
+#     outs:
+#     - processed_dataset/weather.csv
+#   train:
+#     # Run the model training script
+#     cmd: python3 train.py
+#     deps:
+#     - metrics_and_plots.py
+#     - model.py
+#     - processed_dataset/weather.csv
+#     - train.py
+#     - utils_and_constants.py
+#     metrics:
+#       # Specify the metrics file as target
+#       - metrics.json:
+#           cache: false
+#     plots:
+#       # Set the target to the file containing predictions data
+#       - predictions.csv:
+#           # Write the plot template
+#           template: confusion_normalized
+#           x: predicted_label
+#           y: true_label
+#           x_label: 'Predicted label'
+#           y_label: 'True label'
+#           title: Confusion matrix
+#           # Set the cache parameter to store
+#           # plot data in git repository
+#           cache: false
+
+stages:
+  preprocess:
+    cmd: python3 preprocess_dataset.py
+    deps:
+    - preprocess_dataset.py
+    - raw_dataset/weather.csv
+    - utils_and_constants.py
+    outs:
+    - processed_dataset/weather.csv
+  hp_tune:
+    # Set the hyperparameter tuning command
+    cmd: python3 hp_tuning.py
+    deps:
+    - processed_dataset/weather.csv
+    # Specify the hyperparameter configuration as dependency
+    - hp_config.json
+    # Specify the hyperparameter script as dependency
+    - hp_tuning.py
+    - utils_and_constants.py
+    outs:
+      - hp_tuning_results.md:
+          cache: false
